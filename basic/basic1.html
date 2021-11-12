@@ -1,0 +1,23 @@
+<!DOCTYPE >
+<html lang="zh-cn">
+	<meta charset="utf-8">
+	<title>练习vue</title>
+	<head>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+		  {{ message }}
+		</div>
+		
+		<script type="text/javascript">
+			var app = new Vue({
+			  el: '#app',
+			  data: {
+			    message: 'Hello Vue!'
+			  }
+			})
+			//在控制台修改app.message的值，页面上的值也会随着改变
+		</script>
+	</body>
+</html>
