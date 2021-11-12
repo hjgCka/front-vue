@@ -18,7 +18,6 @@
 		    <todo-item
 		      v-for="item in groceryList"
 		      v-bind:todo="item"
-		      v-bind:key="item.id"
 		    ></todo-item>
 		  </ol>
 		</div>
@@ -40,6 +39,10 @@
 					]
 				}
 			})
+			/**
+			 * 在控制台输入app7.groceryList.push({id:6, text:'KKK'})
+			 * 页面也会跟着变化。
+			 */
 		</script>
 	</body>
 </html>
