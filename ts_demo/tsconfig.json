@@ -1,0 +1,48 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    // "rootDir": "./src",
+    // "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    //可设置为nodenext，使用commonsJS的模块规范，但浏览器不支持这种模块系统
+    //可设为esnext，使用浏览器支持的模块语法，但是使用时要加上type="module"
+    //如果ts没有使用其它模块，可以设置为node，那么可以直接引用js
+    "module": "es6",
+    "target": "es6",
+    "types": [],
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"]one,
+    // and npm install -D @types/node
+
+    // Other Outputs
+    // 这3个设置为false，不再生成一些中间文件
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+  }
+}

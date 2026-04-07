@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>当前的n值是：<span v-text="n"></span></h2>
+			<h2>放大10倍后的的n值是：<span v-big="n"></span></h2>
+			<button @click="n++">点我n+1</button>
+
+			<hr/>
+			<input type="text" v-fbind:value="n"/>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		
+		//这些都是局部指令
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				n: 1
+			},
+			directives: {
+				//big何时会被调用？
+				// 1.指令和元素成功绑定时会被调用
+				// 2.指令所在的模板被重新解析时会被调用
+				big(el, binding) {
+					//进行了绑定，N值更新之后，模板会刷新
+					el.innerHTML = binding.value * 10
+				},
+
+				fbind: {
+					//指令与元素第一次绑定时调用。指令相关的回调函数里面，this都是window
+					bind(el, binding) {
+						console.log(binding)
+						el.value = binding.value
+					},
+					//元素插入到父节点时调用
+					inserted(el, binding) {
+						el.focus()
+					},
+					//指令的模板在重新解析时被调用
+					update(el, binding) {
+						el.value = binding.value
+					}
+				}
+			}
+		})
+	</script>
+</html>

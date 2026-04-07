@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<!--使用组件标签-->
+			<school></school>
+			<hr/>
+			<student></student>
+			<hr/>
+
+			<hello></hello>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+
+		//创建school组件
+		/**
+		 * 1. 定义组件时不要写el
+		 * 2. data要写为function
+		 */
+		const school = Vue.extend({
+			template: `
+				<div>
+					<h2>学校名称：{{schoolName}}</h2>
+					<h2>学校地址：{{address}}</h2>
+					<button @click="showName">点我显式学校名称</button>
+				</div>
+			`,
+			data() {
+				return {
+					schoolName: '尚硅谷',
+					address: '北京'
+				}
+			},
+			methods: {
+				showName() {
+					alert(this.schoolName)
+				}
+			}
+		})
+
+		const student = Vue.extend({
+			template: `
+				<div>
+					<h2>学生姓名：{{studentName}}</h2>
+					<h2>学生年龄：{{age}}</h2>
+				</div>
+			`,
+			data() {
+				return {
+					studentName: 'Jack',
+					age: 20
+				}
+			}
+		})
+
+		const hello = Vue.extend({
+			template:`
+				<div>
+					<h2>你好，{{name}}</h2>
+				</div>
+			`,
+			data() {
+				return {name: 'Tom'}
+			}
+		})
+		//全局注册
+		Vue.component('hello', hello)
+		
+		const vm = new Vue({
+			el: '#root',
+			//局部注册组件
+			components: {
+				school: school,
+				student: student
+			}
+		})
+	</script>
+</html>

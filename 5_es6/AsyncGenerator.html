@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>异步生成器 和 异步迭代器</h1>
+    <p>实现异步迭代器的最简单方式是使用生成器。</p>
+</body>
+<script>
+    function elapsedTime(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // 异步生成器，yield生成的值会自动包装到期约中
+    async function* clock(interval, max=Infinity) {
+        for(let count=1; count<=max; count++) {
+            await elapsedTime(interval);
+            yield count;
+        }
+    }
+
+    // for await只能在async函数内使用。
+    // 这个迭代器返回期约，所以也可以用新的for/await循环让代码更简单。
+    async function test() {
+        for await (let tick of clock(300, 100)) {
+            console.log(tick);
+        }
+    }
+</script>
+</html>

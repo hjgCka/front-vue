@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fetch Demo</h1>
+</body>
+<script>
+    let url = 'https://jsonplaceholder.typicode.com/posts';
+    let options = {
+        method: 'GET',
+        // headers: {
+        //     'Content-Type': 'application/json',
+        // },
+        // body: JSON.stringify({ username: 'test', password: '123' }),
+    }
+    fetch(url, options)
+        .then(response => {
+            // 返回的是一个Promise对象，第一个.then方法返回的也是Promise，后者的值得到了‘解决’
+            // 但是并未兑现，只有返回一个不是Promise的对象时，才会解决同时以这个返回值兑现
+            // 这里当http响应体可用时，才能真正解析出数据，并以这个解析出来的数据兑现第一个.then方法返回的Promise
+            return response.json();
+        }).then(data => {
+            console.log(data.length);
+            console.log(data[0]);
+        }).catch(error => {
+            console.error('请求失败:', error);
+        })
+
+    // 等同于如下代码，客户端收到响应之后，p1兑现。
+    // 但是p2的回调返回的是p4，p2这时是被‘解决’，即它由p4的值来确定是被‘兑现’，还是‘拒绝’
+    // 等到响应体可用时，从中提取出json数据后，p4解决并兑现，同时p2也兑现了。开始进行下一个任务。
+    // p3的回调，并没有返回Promise，那么就立刻兑现了。
+    let p1 = fetch(url, options);
+
+    let p2 = p1.then(response => {
+        let p4 = response.json();
+        return p4;
+    })
+
+    let p3 = p2.then(data => {
+            console.log(data.length);
+            console.log(data[0]);
+        });
+
+    // 关于错误处理，下面2行是等价的。显然用后者更符合直觉。
+    // p3.then(null, error => {}); 
+    // p3.catch(error => {});
+
+</script>
+</html>

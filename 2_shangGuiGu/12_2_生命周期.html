@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>当前的n值是：{{n}}</h2>
+			<button @click="add">点我n+1</button>
+			<button @click="bye">点我销毁</button>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		
+		const vm = new Vue({
+			el: '#root',
+			//只能有一个根元素，且template会整个替换<div id=root>这个div
+			// template: `
+			// 	<div>
+			//    		<h2>当前的n值是：{{n}}</h2>
+			//    		<button @click="add">点我n+1</button>
+			//    	</div>
+			// `,
+			data: {
+				n: 1
+			},
+			methods: {
+				add() {
+					this.n++
+				},
+				bye() {
+					//销毁之后的工作成果还在，不再有人帮你管理了
+					console.log('bye')
+					this.$destroy()
+				}
+			},
+			beforeCreate() {
+				//此时不能访问data，还未开启数据代理
+				console.log('beforeCreate')
+			},
+			created() {
+				//开启了数据监测和数据代理，这时可以访问data
+				//开始解析模板，，生成虚拟DOM，页面还不能显式解析好的内容
+				console.log('created')
+				console.log(this)
+			},
+			beforeMount() {
+				//此时页面呈现的都是未经编译的DOM结构
+				//所有对DOM的操作，最终都不奏效
+			},
+			mounted() {
+				//此时呈现的都是经过vue编译的DOM
+			},
+			beforeUpdate() {
+				//数据是新的，但是页面是旧的
+			},
+			updated() {
+				//虚拟dom重新渲染，页面和数据都更新完成了
+			},
+			beforeDestory() {
+				//对数据的修改不会触发更新
+			},
+			destoryed() {
+
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Promise，可参考FetchDemo</h1>
+</body>
+<script>
+    // 示例1：new Promise 的 executor 立即执行
+    const p1 = new Promise((resolve) => {
+        console.log("Promise 内部逻辑执行了"); // 创建时立即打印
+        resolve(123);
+    });
+    // 此时还没调用 .then，但 executor 已经执行了
+
+    // 示例2：Promise.resolve 创建的 Promise 状态立即为 fulfilled
+    const p2 = Promise.resolve(undefined);
+    // p2 一创建就处于 fulfilled 状态，值为 undefined，和 .then 无关
+
+    function fetchSequentially(urls) {
+        const bodies = [];
+
+        function fetchOne(url) {
+            return fetch(url).then(response => response.json())
+            .then(body => {
+                bodies.push(body);
+            })
+        }
+
+        let p = Promise.resolve(undefined);
+
+        // 这里不加上let会导致url变量提升成为全局变量
+        for (let url of urls) {
+            p = p.then(() => fetchOne(url));
+        }
+
+        return p.then(() => bodies);
+    }
+
+    const urls = ['https://jsonplaceholder.typicode.com/posts',
+     'https://jsonplaceholder.typicode.com/albums'];
+    fetchSequentially(urls).then(bodies => {
+        console.log("bodies length = ", bodies.length);
+
+        for (body of bodies) {
+            console.log("length = ", body.length);
+            console.log(body[0]);
+        }
+    }).catch(e => console.error(e))
+</script>
+</html>
+
+<!--
+
+.then 的核心作用是注册回调函数，而非 “启动 Promise 执行”：
+如果 Promise 已经是 fulfilled/rejected 状态（比如 Promise.resolve(undefined) 创建的 Promise）：
+调用 .then 时，回调会被加入微任务队列，等当前同步代码执行完后立即执行；
+
+如果 Promise 还处于 pending 状态：回调会被暂存到 Promise 的回调队列中，
+等 Promise 状态变为 fulfilled/rejected 后，再加入微任务队列执行。
+
+值的获取：Promise 的值无法同步直接获取，
+但可通过 .then 回调或 async/await（语法糖）异步获取，两种方式本质一致；
+
+Promise 的核心特性之一：状态一旦确定（fulfilled/rejected）就永久不可变，
+且每次调用 .then 都会为这个 “固定状态” 注册新的回调，无论调多少次，回调都会执行（微任务队列执行）。
+
+状态确定的 Promise 可无限次调用 .then，每次都会注册新回调并执行（读取缓存的结果值）；
+Promise 状态一旦定型就不可变，且 .then 始终返回新 Promise，不影响原 Promise 的状态和缓存值。
+-->
+

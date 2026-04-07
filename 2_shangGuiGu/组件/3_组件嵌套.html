@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<!--这个标签会被覆盖-->
+			<h2>test</h2>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+
+		const student = Vue.extend({
+			template: `
+				<div>
+					<h2>学生姓名：{{name}}</h2>
+					<h2>学生年龄：{{age}}</h2>
+				</div>
+			`,
+			data() {
+				return {
+					name: 'Jack',
+					age: 20
+				}
+			}
+		})
+
+		const school = Vue.extend({
+			template: `
+				<div>
+					<h2>学校名称：{{name}}</h2>
+					<h2>学校地址：{{address}}</h2>
+					<student></student>
+				</div>
+			`,
+			data() {
+				return {
+					name: '尚硅谷',
+					address: '北京'
+				}
+			},
+			components: {
+				student: student
+			}
+		})
+
+		const hello = Vue.extend({
+			template: `<h1>{{msg}}</h1>`,
+			data() {
+				return {
+					msg: '欢迎来到world'
+				}
+			}
+		})
+
+		const app = Vue.extend({
+			template: `
+				<div>
+					<school></school>
+					<hello></hello>
+				</div>
+			`,
+			components: {
+				school: school,
+				hello: hello
+			}
+		})
+		
+		/*
+			同时写了el和template之后，template会被包裹在div，替换el所在的元素。
+			如果没有template，那么就会将el的整个元素，作为template进行编译。
+		*/
+		const vm = new Vue({
+			el: '#root',
+			template: `<app></app>`,
+			components: {
+				app: app
+			}
+		})
+	</script>
+</html>

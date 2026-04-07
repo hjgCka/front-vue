@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>学校名称：{{name}}</h2>
+			<h2>学校地址：{{addr}}</h2>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		Vue.config.devtools = false
+		
+		let data = {
+			name: '尚硅谷',
+			addr: '北京'
+		}
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				name: '尚硅谷',
+				addr: '北京'
+			}
+		})
+		
+		//这个等式成立，且vm.name等价访问vm.$data.name。
+		//这里使用了Object.defineProperty，为了方便开发者使用。
+		vm.$data === vm._data
+	</script>
+</html>

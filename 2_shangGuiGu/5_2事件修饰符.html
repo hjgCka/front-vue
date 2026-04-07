@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+		<style>
+			*{
+				margin-top: 20px;
+			}
+			.demo1{
+				height: 50px;
+				background-color: skyblue;
+			}
+			
+			.list{
+				width: 200px;
+				height: 200px;
+				background-color: orange;
+				/* 自动形成滚动条 */
+				overflow: auto;
+			}
+			li{
+				/*高度太高的话,子元素会从父元素溢出*/
+				height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>欢迎来到{{name}}</h2>
+			<a href="http://www.atguigu.com" @click.prevent="showInfo">点我提示信息</a>
+			
+			<!-- 阻止冒泡-->
+			<div class="demo1" @click="showInfo">
+				<button @click.stop.prevent="showInfo">点我阻止冒泡</button>
+			</div>
+			
+			<!-- 事件只触发一次-->
+			<button @click.once="showInfo">点我起效一次</button>
+			
+			<!--
+			.capture，这样在事件捕获阶段就开始处理事件，而不是默认地在冒泡阶段处理事件。
+			.self，只有event.target是当前操作的元素时才触发事件。冒泡时，event.target一直都是对应的按钮，并没有改变。
+			
+			.passive，事件的默认行为立即执行，无需等待事件回调执行完毕。
+			结合下面的@wheel例子，当滚动鼠标滚动轮之后，首先去触发滚动的事件，再执行回调函数。
+			回调函数执行完成之后，再执行默认行为，即滚动条下来。
+			-->
+			
+			<!-- @scroll触发滚动条上下调滚动，@wheel触发鼠标滚动轮滚动 -->
+			<ul class="list" @wheel="demo">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+			</ul>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		Vue.config.devtools = false
+		
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				name: '尚硅谷'
+			},
+			methods: {
+				showInfo(event) {
+					//event.preventDefault()，阻止默认行为
+					//event.stopPropagation()，阻止事件冒泡
+					alert('同学你好')
+				},
+				demo() {
+					//console.log('@')
+					for (let i=0; i<10000; i++) {
+						console.log('#')
+					}
+					console.log('累坏了')
+				}
+			}
+		})
+	</script>
+</html>

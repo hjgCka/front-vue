@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>{{msg}}</h2>
+			<!-- <div id="vc"></div> -->
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+
+		Vue.prototype.x = 99
+
+		const school = Vue.extend({
+			template: `
+				<div>
+					<h2>学校名称：{{name}}</h2>
+					<h2>学校地址：{{address}}</h2>
+					<button @click="showX">点我输出x</button>
+				</div>
+			`,
+			data() {
+				return {
+					name: '尚硅谷',
+					address: '北京'
+				}
+			},
+			methods: {
+				showX() {
+					//this是school的实例对象vc，到Vue的原型对象上找到了x
+					console.log(this.x)
+				}
+			}
+		})
+
+		const vc = new school().$mount('#root')
+
+		// const vm = new Vue({
+		// 	el: '#root',
+		// 	data: {
+		// 		msg: '你好'
+		// 	},
+		// 	mounted() {
+		// 		// 手动挂载到父组件的 DOM 节点
+		// 		this.vc = new school().$mount();
+		// 		this.$el.appendChild(this.vc.$el);
+		// 	}
+		// })
+
+		
+	</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>人员列表</h2>
+			<button @click="updateMdm">更新马冬梅</button>
+			<ul>
+				<li v-for="person in persons" :key="person.id">
+					{{person.name}} - {{person.age}} - {{person.sex}}
+				</li>
+			</ul>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+
+		//计算属性实现
+		new Vue({
+			el: '#root',
+			data: {
+				persons: [
+					{id:'001', name:'马冬梅', sex:'女', age:26},
+					{id:'002', name:'周冬雨', sex:'女', age:19},
+					{id:'003', name:'周杰伦', sex:'男', age:44},
+					{id:'004', name:'温兆伦', sex:'男', age:22}
+				]
+			},
+			methods: {
+				updateMdm() {
+					//这样写是奏效的
+					this.persons[0].name = '马老师'
+					this.persons[0].age = 50
+					this.persons[0].sex = '男'
+
+					//这样写，vue并没有检测到修改了persons[0]的信息
+					//this.persons[0] = {id:'001', name:'马老师', sex:'男', age:50}
+				}
+			}
+		})
+	</script>
+</html>

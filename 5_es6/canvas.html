@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Demo</title>
+</head>
+<body>
+    <h1>Canvas Demo1</h1>
+
+    <div>
+        <p>This is a red square: <canvas id="square" width=20 height=20></canvas></p>
+        <p>This is a blue circle: <canvas id="circle" width=20 height=20></canvas></p>
+    </div>
+</body>
+
+<script>
+    let canvas = document.querySelector('#square');
+    let context = canvas.getContext("2d");
+    context.fillStyle = "#f00";
+    context.fillRect(0, 0, 20, 20);
+
+    canvas = document.querySelector('#circle');
+    context = canvas.getContext("2d");
+    context.beginPath();    // 开始一个新‘路径’
+    context.arc(10, 10, 10, 0, 2*Math.PI, true);   // 为路径添加一个圆形
+    context.fillStyle = "#00f";
+    context.fill();         // 填充路径
+</script>
+</html>

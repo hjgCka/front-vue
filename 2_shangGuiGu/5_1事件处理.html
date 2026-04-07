@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>欢迎来到{{name}}</h2>
+			<button v-on:click="showInfo1">点我提示信息</button>
+			<button @click="showInfo2(66, $event)">点我提示信息2</button>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		Vue.config.devtools = false
+		
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				name: '尚硅谷'
+			},
+			methods: {
+				//也可以简写为 showInfo() {}
+				showInfo1: function(event) {
+					console.log(event.target.innerText)
+					//此处的this是vm，所有被vue管理的函数，不要用箭头函数
+					console.log(this === vm)
+					alert('同学你好')
+				},
+				showInfo2(number, event) {
+					console.log(number, event)
+					alert('同学你好！！')
+				}
+			}
+		})
+	</script>
+</html>

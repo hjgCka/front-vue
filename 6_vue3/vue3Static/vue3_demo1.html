@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3 Demo1</title>
+</head>
+<body>
+    <h1>Vue3 Demo1</h1>
+
+    <div id="app">
+        <button @click="count++">{{ count }}</button>
+    </div>
+
+    <!-- script标签放在</body>之前符合规范，放在</body>之后不符合规范 -->
+    
+    <!-- 该js文件是vue的全局构建的版本，所有的方法和属性都在Vue对象上。 -->
+    <script src="../../vue3.5.27.js"></script>
+    <script>
+        const { createApp } = Vue
+        
+        const app = createApp({
+            data() {
+                return {
+                    count: 0
+                }
+            }
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+</html>

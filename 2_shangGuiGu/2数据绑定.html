@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			单向数据绑定：<input type="text" v-bind:value="name"/><br />
+			
+			<!-- v-model只能用在表单类元素，也即输入类元素上-->
+			双向数据绑定：<input type="text" v-model:value="name"/><br />
+			<!-- v-model可以简写-->
+			双向数据绑定2：<input type="text" v-model="name"/>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		
+		var vm = new Vue({
+			el: '#root',
+			data: {
+				name : '尚硅谷'
+			}
+		})
+	</script>
+</html>

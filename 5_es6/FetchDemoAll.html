@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fetch Demo all</h1>
+    <h2>并行期约 和 创建期约</h2>
+</body>
+<script>
+    const urls = ['https://jsonplaceholder.typicode.com/posts',
+     'https://jsonplaceholder.typicode.com/comments'];
+    
+    const promises = urls.map(url => fetch(url).then(r => r.json()));
+
+    Promise.all(promises).then(bodies => {
+        console.log(bodies.length);
+
+        for(let body of bodies) {
+            // es6遍历语法
+            console.log(body.length);
+            console.log(body[0]);
+        }
+    }).catch(e => console.error(e));
+    
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Iterator</h1>
+</body>
+<script>
+class Range{
+    constructor(from, to){
+        this.from = from;
+        this.to = to;
+    }
+
+    [Symbol.iterator]() {
+        let next = Math.ceil(this.from);
+        let last = this.to;
+        return {
+            next() {
+                return (next <= last)?{value: next++} : {done: true};
+            },
+            [Symbol.iterator]() {return this;}
+        }
+    }
+}
+
+function filter(iterable, predicate) {
+    let iterator = iterable[Symbol.iterator]();
+    return {
+        [Symbol.iterator]() {return this;},
+        next() {
+            // 这里的for是无线循环，直到迭代结束或者找到符合条件元素，然后返回对象。
+            // 如果注释的话，第一个监测的是1，它不符合条件，但是也不会返回任何对象，这不符合迭代器协议
+            for(;;) {
+                let v = iterator.next();
+                if (v.done || predicate(v.value)) {
+                    return v;
+                }
+            }
+        }
+    }
+}
+
+const r = new Range(1, 11);
+for (let t of r) {
+    console.log(t) // 打印1到11的数字
+}
+
+// ...操作符和for/of 会忽略done:true的元素
+console.log([...filter(r, x => x%2 === 0)]);
+
+</script>
+</html>

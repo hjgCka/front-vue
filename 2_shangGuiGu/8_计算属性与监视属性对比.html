@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			姓：<input type="text" v-model="firstName"/><br />
+			名：<input type="text" v-model="lastName"/><br />
+			全名：<span>{{fullName}}</span>
+		</div>
+	</body>
+
+	<!--
+	 computed可以完成的，watch都可以完成。
+	 而watch能完成的，computed不一定能完成。因为watch可以执行更复杂的逻辑。
+	-->
+	
+	<script>
+		Vue.config.productionTip = false
+		Vue.config.devtools = false
+		
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				//这里数据发生变化时，vue模板都会重新解析一遍(el指向的元素)，所以fullName方法会重新调用
+				firstName: '张',
+				lastName: '三',
+				fullName: '张-三'
+			},
+			computed: {
+				//当只有get而没有set时，可以进行简写
+				fullName() {
+					return this.firstName + '-' + this.lastName
+				}
+			},
+			watch: {
+				firstName(newValue, oldValue) {
+					//这里如果需要等1秒，只能用watch。因为它有更复杂的逻辑。
+					//这里使用箭头函数，它的this由外层继承。
+					//如果是普通函数，由js引擎调用时确定，就会变为全局window
+					setTimeout(() => {
+						this.fullName = newValue + '-' + this.lastName
+					}, 1000);
+				},
+				lastName(newValue, oldValue) {
+					this.fullName = this.firstName + '-' + newValue
+				}
+			}
+		})
+	</script>
+</html>

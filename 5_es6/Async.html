@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>异步函数</h1>
+</body>
+<script>
+    let postsUrl = 'https://jsonplaceholder.typicode.com/posts';
+    let options = {
+        method: 'GET',
+        // headers: {
+        //     'Content-Type': 'application/json',
+        // },
+        // body: JSON.stringify({ username: 'test', password: '123' }),
+    }
+    
+    async function getJson(url) {
+        let response = await fetch(url, options);
+        let json = await response.json();
+        return json;
+    }
+
+    /**
+     * 
+     * await关键字接收一个期约，并将其转换为一个返回值 或 一个抛出的异常。
+     * 它只能在以async关键字声明的函数内部使用。
+     * 
+     * 把函数声明为async意味着该函数的返回值将是一个期约。async其实是使用Promise的语法糖。
+     * 
+     * 
+    */
+    getJson(postsUrl).then(posts => {
+        console.log("posts length " + posts.length);
+        console.log(posts[0]);
+    }).catch(e => console.error(e));
+
+    // async是Promise的语法糖，如下代码同时有多个期约
+    const urls = ['https://jsonplaceholder.typicode.com/comments',
+     'https://jsonplaceholder.typicode.com/albums'];
+    // Promise.all([getJson(urls[0]), getJson(urls[1])])
+    //     .then(bodies => {
+    //         console.log("bodies length =", bodies.length);
+    //         for(let body of bodies) {
+    //             console.log("length = ", body.length);
+    //             console.log(body[0]);
+    //         }
+    //     })
+
+    // 这种写法要么放在async的function中，要么放在<script type="module">中
+    async function fetchAllData() {
+        let [comments, albums] = await Promise.all([getJson(urls[0]), getJson(urls[1])]);
+        console.log(comments[0]);
+        console.log(albums[0]);
+    }
+    fetchAllData();
+    
+</script>
+</html>

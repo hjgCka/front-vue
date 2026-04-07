@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			姓：<input type="text" v-model="firstName"/><br />
+			名：<input type="text" v-model="lastName"/><br />
+			<!-- 全名：<span>{{firstName.slice(0, 3) + '-' + lastName}}</span> -->
+			<!-- 这个插值语法是调用方法，并不是直接访问数据，因此加上()表示方法调用 -->
+			全名：<span>{{fullName()}}</span>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		Vue.config.devtools = false
+		
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				//这里数据发生变化时，vue模板都会重新解析一遍(el指向的元素)，所以fullName方法会重新调用
+				firstName: '张',
+				lastName: '三'
+			},
+			methods: {
+				fullName() {
+					//return '小猪佩奇'
+					return this.firstName + '-' + this.lastName
+				}
+			}
+		})
+	</script>
+</html>

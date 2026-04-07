@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>欢迎来到{{name}}</h2>
+
+			<anchored-heading :level="level">
+				<!-- 将插槽中的内容放置到渲染函数第一个参数指定的元素里面 -->
+				<slot><span>Hello World</span></slot>
+				<slot><p>Hello World22</p></slot>
+			</anchored-heading>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+
+		Vue.component('anchored-heading', {
+			render: function (createElement) {
+				return createElement(
+					'h' + this.level,   // 标签名称
+					this.$slots.default // 子节点数组
+				)
+			},
+			props: {
+				level: {
+					type: Number,
+					required: true
+				}
+			},
+			mounted() {
+				console.log(this.$slots.default)
+			}
+		})
+		
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				name: '尚硅谷',
+				level: 1
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		Vue.config.devtools = false
+		
+		let person = {
+			name : 'Jack',
+			sex : '男',
+			_addr: ''
+		}
+		
+		//该方法默认不可枚举、不可被修改、不可被删除
+		Object.defineProperty(person, 'age', {
+			value : 18,
+			enumerable: true,
+			writable: true,
+			configurable: true
+		})
+		
+		Object.defineProperty(person, 'addr', {
+			get: function() {
+				return this._addr
+			},
+			set: function(newAddr) {
+				return this._addr = newAddr
+			},
+			enumerable: true,
+			configurable: true
+		})
+		
+		console.log(Object.keys(person))
+		
+	</script>
+</html>

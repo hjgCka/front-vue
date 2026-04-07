@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>欢迎来到{{name}}</h2>
+			<!-- keyup keydown keypress，只有按键是enter时，才会调用-->
+			<!--
+			vue未提供别名的按键，可以使用按键原始的key(按键名称)来绑定，不过要转为kebab-case命名。
+			比如CapsLock，转为caps-lock才行。
+			
+			tab的按键事件比较特殊，它按下之后失去焦点，应该用keydown事件绑定。
+			
+			ctrl, alt, shift, meta(win键)。这4个系统修饰键比较特殊。
+			与keyup搭配时，按下它再按下其它键才能触发。
+			与keydown搭配时，正常触发。
+			-->
+			<input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo"/>
+			<!-- 响应ctrl + y的事件-->
+			<input type="text" placeholder="按下回车提示输入" @keyup.ctrl.y="showInfo"/>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		Vue.config.devtools = false
+		
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				name: '尚硅谷'
+			},
+			methods: {
+				showInfo(e) {
+					//key是按键名称，keyCode是按键编码
+					//console.log(e.key)
+					//console.log(e.keyCode)
+					/* if (e.keyCode != 13) {
+						return;
+					} */
+					console.log(e.target.value)
+				}
+			}
+		})
+	</script>
+</html>

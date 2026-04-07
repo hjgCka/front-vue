@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>{{msg}}</h2>
+			<!-- <div id="vc"></div> -->
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+
+		Vue.prototype.x = 99
+
+		const school = Vue.extend({
+			template: `
+				<div>
+					<h2>学校名称：{{name}}</h2>
+					<h2>学校地址：{{address}}</h2>
+					<button @click="showX">点我输出x</button>
+				</div>
+			`,
+			data() {
+				return {
+					name: '尚硅谷',
+					address: '北京'
+				}
+			},
+			methods: {
+				showX() {
+					//this是school的实例对象vc，到Vue的原型对象上找到了x
+					console.log(this.x)
+				}
+			}
+		})
+
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				msg: '你好'
+			},
+			mounted() {
+				// 手动挂载到父组件的 DOM 节点
+				this.vc = new school().$mount();
+				this.$el.appendChild(this.vc.$el);
+			}
+		})
+
+		// 这里vm已经进行了mount，但是产生的真实DOM中，还是有一个id为root的div
+		// school挂载时，会用template替换root的内容
+		//被vm挂载之后，又被vc挂载，这样并不好
+		// const vc = new school().$mount('#vc')
+
+		//还是能打印
+		// console.log(vc.x)
+
+		// console.log('children length', vm.$children.length)
+	</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Generator2</h1>
+</body>
+<script>
+    function* fibonacciSequence() {
+        let x=0; y=1;
+        for(;;) {
+            yield x;
+            [x, y] = [y, x+y];
+        }
+    }
+
+    // 返回第n个斐波那契数
+    function fibonacci(n) {
+        for (let f of fibonacciSequence()) {
+            if (n-- <= 0) {
+                return f;
+            }
+        }
+    }
+
+    console.log(fibonacci(8));
+
+    // 回送可迭代对象的前n个元素
+    function* take(n, iterable) {
+        let it = iterable[Symbol.iterator]();
+        while(n-- > 0) {
+            let next = it.next();
+            if (next.done) {
+                return;
+            } else {
+                yield next.value;
+            }
+        }
+    }
+    // 第二个参数调用返回生成器对象，它同时也是可迭代对象
+    console.log([...take(8, fibonacciSequence())])
+</script>
+</html>

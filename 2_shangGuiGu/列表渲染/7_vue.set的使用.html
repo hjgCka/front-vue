@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../../vue.js"></script>
+	</head>
+	<body>
+		<div id = "root">
+			<h2>学校名称：{{name}}</h2>
+			<h2>学校地址：{{address}}</h2>
+			<hr/>
+
+			<h2>姓名：{{student.name}}</h2>
+			<h2>性别：{{student.sex}}</h2>
+			<h2>年龄：真实{{student.age.rAge}}，对外{{student.age.sAge}}</h2>
+			<h2>朋友们</h2>
+			<ul>
+				<li v-for="(f, index) in student.friends" :key="index">
+					{{f.name}} -- {{f.age}}
+				</li>
+			</ul>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+
+		//计算属性实现
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				name: '尚硅谷',
+				address: '北京',
+				student: {
+					name: 'Tom',
+					age: {
+						rAge: 40,
+						sAge: 29
+					},
+					friends: [{name:'Jerry', age:20}, {name:'Jack', age:21}]
+				}
+			}
+		})
+
+		//可以使用Vue.set或 vm.$set 来动态添加属性。
+		//但是无法直接添加到data下的属性，只能用data对象下的属性。
+		vm.$set(vm.student, 'sex', '男')
+	</script>
+</html>

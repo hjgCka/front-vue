@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<style>
+			[v-cloak] {
+				display:none
+			}
+		</style>
+		<script src="../vue.js"></script>
+	</head>
+	<body>
+		<!--
+		v-text和v-html都会替换节点内的全部内容，插值语法{{xx}}不会，所以后者更灵活。
+		vue实例创建完毕并接管容器后，会删掉v-cloak属性。使用css配合v-cloak可以解决网速慢时页面显式{{xx}}的问题。
+		
+		会跳过v-pre所在节点的编译。可以放在没有使用指令语法、插值语法的节点上，加快编译。
+		-->
+		<div id = "root">
+			<!-- 未加载时不展示，展示好了之后显式隐藏的内容。-->
+			<h2 v-cloak>{{name}}</h2>
+
+			<div v-text="name"></div>
+
+			<div v-html="title"></div>
+
+			<div v-html="xssTitle"></div>
+			<div v-html="xssTitle2"></div>
+
+			<!-- 只渲染组件一次，随后更新name值这里不会重新渲染-->
+			<h2 v-once>初始化的name：{{name}}</h2>
+
+			<h2 v-pre>初始化的name：{{name}}</h2>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+		
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				name: '尚硅谷',
+				title: '<h3>你好</h3>',
+				xssTitle: '<a href=javascript:alert(1)>找到你想要的资源了，快来！</a>',
+				xssTitle2: '<a href=javascript:location.href="https://www.baidu.com">找到你想要的资源了，快来！</a>'
+			}
+		})
+	</script>
+</html>

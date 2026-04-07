@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue</title>
+		<script src="../../vue.js"></script>
+	</head>
+	<body>
+		<!--
+		注意点：
+		1.关于组件名称
+		         一个单词组成：school或School
+				 多个单词组成：kebab-case(my-school)，CamelCase(MySchool)需要脚手架支持
+		2.关于组件标签
+				<school></school>
+				<school/>，这种自闭合标签，不在脚手架环境下使用时，会导致后续组件不能渲染
+		-->
+		<div id = "root">
+			{{msg}}
+			<school></school>
+		</div>
+	</body>
+	
+	<script>
+		Vue.config.productionTip = false
+
+		//创建school组件
+		/**
+		 * 1. 定义组件时不要写el
+		 * 2. data要写为function
+		 */
+		const school = Vue.extend({
+			//这个一般第三方组件作者会用，避免在vue插件控制台中名称混乱
+			name: 'cka',
+			template: `
+				<div>
+					<h2>学校名称：{{name}}</h2>
+					<h2>学校地址：{{address}}</h2>
+				</div>
+			`,
+			data() {
+				return {
+					name: '尚硅谷',
+					address: '北京'
+				}
+			}
+		})
+		
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				msg: '欢迎学习vue'
+			},
+			//局部注册组件
+			components: {
+				school: school
+			}
+		})
+	</script>
+</html>

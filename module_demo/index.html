@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        //1. 通用导入方式
+        //引入m1.js模块内容
+        // import * as m1 from "./js/m1.js"
+        // m1.teach()
+
+        // //引入m2
+        // import * as m2 from "./js/m2.js"
+        // m2.findJob()
+
+        // import * as m3 from "./js/m3.js"
+        // //console.log(m3)
+        // m3.default.change()
+
+        //2. 结构赋值形式
+        // import {school, teach} from "./js/m1.js"
+        // teach()
+        // console.log(school)
+        
+        // import {school as guigu, findJob} from "./js/m2.js"
+        // console.log(guigu)
+        // findJob()
+
+        // import {default as m3} from "./js/m3.js"
+        // m3.change()
+        // console.log(m3.school)
+
+        //3. 简便形式，只能针对默认暴露
+        // import m3 from "./js/m3.js"
+        // console.log(m3.school)
+        // m3.change()
+    </script>
+
+    <!--所有操作都在app.js中-->
+    <script src="./js/app.js" type="module"></script>
+</body>
+</html>

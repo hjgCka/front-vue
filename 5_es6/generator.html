@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Generator</h1>
+</body>
+<script>
+
+// 调用该方法返回生成器对象，生成器同时也是迭代器
+function* generatorFn() {
+    yield 1;
+    yield 2;
+    yield 3;
+    return 4;
+}
+//for of机制，只处理done:false的数据，这里只打印1，2，3
+for (const x of generatorFn()) {
+    console.log(x)
+}
+
+function* generator2() {
+    yield* [1,2,3];
+}
+for (const x of generator2()) {
+    console.log(x)
+}
+
+// 在类和对象字面量中，定义方法时可以用简写形式
+let o = {
+    x:1, y:2, z:3,
+    *g() {
+        for (let key of Object.keys(this)) {
+            yield key;
+        }
+    }
+}
+console.log([...o.g()])
+
+// 生成器定义可迭代类
+class Range{
+    constructor(from, to){
+        this.from = from;
+        this.to = to;
+    }
+
+    *[Symbol.iterator]() {
+        for (let x = Math.ceil(this.from); x<=this.to; x++) {
+            yield x;
+        }
+    }
+}
+const r = new Range(1, 11);
+for (let t of r) {
+    console.log(t) // 打印1到11的数字
+}
+</script>
+</html>
