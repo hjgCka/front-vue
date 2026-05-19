@@ -1,3 +1,9 @@
+### 安装
+
+执行 npm init -y 会生成package.json文件，后续安装的依赖都会被记录在package.json文件。
+
+默认局部安装，但是要加上-D(--save-dev)即这个依赖是开发依赖。
+
 ### 编译ts文件
 
 为了编译ts文件，需要用npm安装typescript依赖。
