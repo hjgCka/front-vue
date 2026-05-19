@@ -29,6 +29,9 @@ html中的script标签，不能自闭。
 ### tsc配置
 
 tsc有很多配置，可以将配置写在tsconfig.json文件，这样运行时就可以不写参数。
+```
+通过执行 tsc --init 生成tsconfig.json文件。
+```
 
 module选项为es6时，编译好的js文件最后会出现`export {};`，导出一个空对象。
 
