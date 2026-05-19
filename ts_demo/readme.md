@@ -2,7 +2,7 @@
 
 执行 npm init -y 会生成package.json文件，后续安装的依赖都会被记录在package.json文件。
 
-默认局部安装，但是要加上-D(--save-dev)即这个依赖是开发依赖。
+npm默认局部安装和开发依赖，但是要加上-D(--save-dev)即这个依赖是开发依赖。
 
 ### 编译ts文件
 
@@ -13,47 +13,27 @@
 
 调用package.json的script部分，不需要用npx。因为npm会自动将**node_modules/.bin**目录加入脚本的执行环境PATH。只需用`npm run 命令名称`即可。
 
+### 监控ts文件
+
+使用typescript插件自带的监视功能，保存文件后自动编译。
+
+在package.json进行配置。
+
+### 使用
+
+在html链接编译好的js文件，使用type="module"时，需要在服务器访问，可用liveServer。
+
+html中的script标签，不能自闭。
+
 
 ### tsc配置
 
 tsc有很多配置，可以将配置写在tsconfig.json文件，这样运行时就可以不写参数。
 
-### any类型
+module选项为es6时，编译好的js文件最后会出现`export {};`，导出一个空对象。
 
-声明为any的话，会关闭类型检查。
+html引用这个js文件，无法导入得到任何东西。但是这会告诉浏览器，把它当作模块来处理。
 
-没有声明类型的话，会进行自动推断，如果无法推断出类型就会认为是any。
-
-有`noImplicitAny`编译选项，如果自动推断出any就会报错。
+使用时需要type="module"，并且这个js文件内部的代码依然会被执行。
 
 
-
-### unknown
-
-这个类型相当于安全的any类型，凡是需要any类型的地方，通常都应该优先考虑设为`unknown`类型。
-
-
-
-
-
-### never
-
-空类型。不可赋值给它任何值，否则报错。
-
-
-
-### 元组
-
-比如数组有更强的约束，比如长度固定，类型固定。
-
-
-
-### type命令
-
-通过type命令来定义类型的别名。
-
-
-
-### class
-
-JavaScript 的类本质上是一个构造函数
