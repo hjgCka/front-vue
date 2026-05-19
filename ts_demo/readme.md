@@ -6,32 +6,17 @@
 
 ### 编译ts文件
 
-为了编译ts文件，需要用npm安装typescript依赖。
+非全局安装时，使用`npx tsc`命令编译ts文件。
 
-这里使用的是非全局安装，这个依赖提供了执行命令：tsc，所以需要使用npx来执行。
+它会默认将目录和子目录下的ts文件进行编译，可以在tsconfig.json指定要编译的文件。
+如果tsc命令指定了ts文件，会忽略tsconfig.json，这时运行需要加上参数，比如：`npx tsc hello.ts --ignoreConfig`。
 
-例如：
-
-```shell
-npx tsc -v
-npx tsc xxx.ts
-```
-
-
-
-其它仅仅用于代码引入的普通模块，比如（axios）就不需要这样执行。
-
-
-
-package.json的script部分，不需要用npx。因为npm会自动将**node_modules/.bin**目录加入脚本的执行环境PATH。
-
+调用package.json的script部分，不需要用npx。因为npm会自动将**node_modules/.bin**目录加入脚本的执行环境PATH。只需用`npm run 命令名称`即可。
 
 
 ### tsc配置
 
 tsc有很多配置，可以将配置写在tsconfig.json文件，这样运行时就可以不写参数。
-
-
 
 ### any类型
 

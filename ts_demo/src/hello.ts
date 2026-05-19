@@ -6,3 +6,6 @@ console.log(a)
 
 const b = 'Banana'
 console.log(b)
+
+const apple = 'Apple'
+console.log(apple.toUpperCase())
