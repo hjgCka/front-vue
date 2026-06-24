@@ -1,8 +1,12 @@
 ### 安装
 
-执行 npm init -y 会生成package.json文件，后续安装的依赖都会被记录在package.json文件。
+执行 `npm init` 会生成package.json文件（`npm init -y`会跳过交互），后续安装的依赖都会被记录在package.json文件。
 
-npm默认局部安装和开发依赖，但是要加上-D(--save-dev)即这个依赖是开发依赖。
+npm默认局部安装和生产依赖，但是要加上-D(--save-dev)即这个依赖是开发依赖。
+
+```
+npm install -D moment
+```
 
 ### 编译ts文件
 
