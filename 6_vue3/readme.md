@@ -21,3 +21,12 @@ $ npm install
 $ npm run dev
 ```
 
+如果从git拉取项目之后，已经存在了package-lock.json文件，可以使用clean install，即：
+
+```
+npm ci
+```
+
+它不会改动package-lock.json文件，并严格按照这个文件的版本来安装依赖。
+
+如果想更新依赖，可以删除package-lock.json文件，重新执行`npm install`，这时下载的依赖版本可能会不一样。
