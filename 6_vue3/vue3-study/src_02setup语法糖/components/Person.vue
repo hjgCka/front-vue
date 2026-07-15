@@ -75,17 +75,15 @@
 <!-- 带语法糖的写法，相当于里面内容都在setup函数内，且返回了对象。
  不带setup的script标签可以与带setup标签共存，前者用于配置组件名称。 -->
 <script setup lang="ts">
-    import {ref} from 'vue'
-    
-    let name = ref('张三')
-    let age = ref(19)
+    let name = '张三'
+    let age = 19
     let tel = '13822221111'
 
     function changeName() {
-        name.value = 'zhang-san'
+        name = 'zhang-san'
     }
     function changeAge() {
-        age.value += 1
+        age += 1
     }
     function showTel() {
         alert(tel)
