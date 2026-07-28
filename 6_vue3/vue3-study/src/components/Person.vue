@@ -1,34 +1,23 @@
 <template>
     <div class="person">
-        <h2>姓名：{{ person.name }}, {{ name }}</h2>
-        <h2>年龄：{{ person.age }}, {{ age }}, {{ a }}</h2>
-        <button @click="changeName">修改名字</button>
-        <button @click="changeAge">修改年龄</button>
+        
     </div>
 </template>
 
 <script setup lang="ts">
-    import {reactive, toRefs, toRef} from 'vue'
+    import {type PersonInter, type Persons} from '@/types'
+    let person:PersonInter = {id:'1213', name: '张三', age: 60}
 
-    let person = reactive({
-        name: '张三',
-        age: 18
-    })
-
-    // 和person.name person.age相同
-    let {name, age} = toRefs(person)
-
-    let a = toRef(person, 'age')
-
-    // person, age, a 都是ObjectRefImpl
-    console.log(person.age, age, a.value)
-
-    function changeName() {
-        name.value += '~'
-    }
-    function changeAge() {
-        age.value += 1
-    }
+    // let personList:Array<PersonInter> = [
+    //     {id:'1213', name: '张三', age: 60},
+    //     {id:'1213', name: '张三', age: 60},
+    //     {id:'1213', name: '张三', age: 60}
+    // ]
+    let personList:Persons = [
+        {id:'1213', name: '张三', age: 60},
+        {id:'1213', name: '张三', age: 60},
+        {id:'1213', name: '张三', age: 60}
+    ]
 </script>
 
 <style scoped>
