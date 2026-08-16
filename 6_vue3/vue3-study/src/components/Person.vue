@@ -1,32 +1,24 @@
 <template>
     <div class="person">
-        <h2>姓名：{{ p1.name }}</h2>
-        <h2>年龄：{{ p1.age }}</h2>
+        <h2>当前求和为：{{ sum }}，放大10倍后：{{ bigSum }}</h2>
+        <button @click="add">点我sum+1</button>
+        <hr>
 
-        <ul>
-            <li v-for="item in list" :key="item.id">{{ item.name }}</li>
-        </ul>
+        <img v-for="(pic,index) in picList" :src="pic" :key="index">
+        <br>
+        <button @click="getPic">再来一个图片</button>
     </div>
 </template>
 
 <script setup lang="ts">
-    import {ref} from 'vue'
-    import {type PersonInter, type Persons} from '@/types'
-    let person:PersonInter = {id:'1213', name: '张三', age: 60}
+    import useLifelogic from '@/hooks/useLifecycle'
+    import useSum from '@/hooks/useSum'
+    import usePic from '@/hooks/usePic'
+    
+    useLifelogic()
 
-    // let personList:Array<PersonInter> = [
-    //     {id:'1213', name: '张三', age: 60},
-    //     {id:'1213', name: '张三', age: 60},
-    //     {id:'1213', name: '张三', age: 60}
-    // ]
-    let personList:Persons = [
-        {id:'1213', name: '张三', age: 60},
-        {id:'1214', name: '李四', age: 60},
-        {id:'1215', name: '王五', age: 60}
-    ]
-
-    let p1 = ref(person)
-    let list = ref(personList)
+    const {sum, bigSum, add} = useSum()
+    const {picList, getPic} = usePic()
 </script>
 
 <style scoped>
@@ -38,5 +30,11 @@
     }
     button {
         margin: 0px 5px;
+    }
+
+    img {
+        width: 200px;
+        height: 300px;
+        margin-left: 10px;
     }
 </style>
