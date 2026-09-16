@@ -6,12 +6,12 @@
 
 import { createApp } from 'vue'
 import App from './App.vue'
-
-// 引入路由器
-import router from './router'
+import { createPinia } from 'pinia'
 
 const app = createApp(App)
-// 使用路由器
-app.use(router)
+
+const pinia = createPinia()
+app.use(pinia)
+
 // 挂载应用到容器
 app.mount('#app')
